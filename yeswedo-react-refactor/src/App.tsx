@@ -1,10 +1,12 @@
 import React from 'react';
-import {HelloWorld} from './components/atoms'
+import { CommonButton, Input } from './components/atoms';
 
 function App() {
   return (
     <div className="App">
-        <HelloWorld />
+        <CommonButton className='text'color='secondary' variant='contained' label='Test Button'/>
+        <CommonButton className='text'color='primary' variant='contained' label='Test Button'/>
+        <Input variant='standard'/>
     </div>
   );
 }
