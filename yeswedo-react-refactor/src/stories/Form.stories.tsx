@@ -1,8 +1,8 @@
 import React from 'react'
-import Form from './Form'
+import Form from '../components/molecules/Form/Form'
 
 export default {
-    title: './Form',
+    title: 'Components/Molecules/Form',
     component: Form
 }
 
