@@ -1,18 +1,13 @@
 import React from 'react';
-import { CommonButton } from './components/atoms';
-import { Form } from './components/molecules';
+// import { Route } from 'react-router-dom'
+
+// Custom component imports
+import { SignUp } from '../src/components/organisms'
 
 function App() {
   return (
     <div className="App">
-        <CommonButton color='secondary' variant='contained' label='Test Button'/>
-        <CommonButton color='primary' variant='contained' label='Test Button'/>
-        <Form
-          buttonColor='secondary' 
-          buttonLabel='Test Button'
-          elevation={false}
-          inputVariant='standard' 
-        />
+        <SignUp />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-import CommonButton from '../components/atoms/Button/Button'
+import { Meta } from '@storybook/react'
+import { CommonButton } from '../components/atoms/Button/Button'
 
 export default {
     title: 'Components/Atoms/Button',
-    component: CommonButton
-}
+} as Meta
 
 export const Primary = () => (
     <CommonButton 

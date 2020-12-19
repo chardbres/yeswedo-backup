@@ -1,2 +1,3 @@
-export { default as CommonButton } from './Button/Button'
-export { default as Input } from './Input/Input'
+export { CommonButton } from './Button/Button'
+export { BasicInput} from './Input/Input'
+export { IconInput }  from './Input/Input'
