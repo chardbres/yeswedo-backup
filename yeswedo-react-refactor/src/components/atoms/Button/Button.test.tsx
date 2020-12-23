@@ -1,10 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import CommonButton from './Button'
+import { FullButton, OutlinedButton, TextButton } from './Button'
 
 it("renders without crashing", () => {
-  shallow(<CommonButton label='Test Button' />)
+  shallow(<FullButton label='Test Button' />)
+  shallow(<OutlinedButton label='Test Button' />)
+  shallow(<TextButton label='Test Button' />)
 });
 
 export{}

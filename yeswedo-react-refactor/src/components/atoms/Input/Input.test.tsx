@@ -1,10 +1,19 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Input from './Input'
+import { IconInput } from './Input'
 
 it("renders without crashing", () => {
-  shallow(<Input variant='standard' />)
+  shallow(<IconInput
+      className='test' 
+      label='Test' 
+      name='Test' 
+      placeholder='Test' 
+      size='small' 
+      type='username' 
+      value='Test' 
+      onChange='' 
+    />)
 });
 
 export{}

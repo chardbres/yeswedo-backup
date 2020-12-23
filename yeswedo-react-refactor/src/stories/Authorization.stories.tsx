@@ -1,16 +1,27 @@
 import React from 'react'
-import { Meta } from '@storybook/react'
-import { SignIn } from '../components/organisms/SignIn/SignIn'
-import SignUp from '../components/organisms/SignUp/SignUp'
+import { MemoryRouter } from 'react-router'
+import { Meta, storiesOf } from '@storybook/react'
+import { SignUp, SignIn } from '../components/organisms/'
 
 export default {
     title: 'Components/Organisms/Authorization'
 } as Meta
 
-export const SignInComponent = () => (
-    <SignIn />
-)
+// export const SignUpForm = () => (
+//     <SignUp />
+// )
 
-export const SignUpComponent = () => (
-    <SignUp />
-)
+// export const SignInForm = () => (
+//     <SignIn />
+// )
+
+storiesOf('Authorization', module)
+    .addDecorator(story => (
+        <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+    ))
+    .add('SignUp', () => {
+        return <SignUp />
+    })
+    .add('SignIn', () => {
+        return <SignIn />
+    })

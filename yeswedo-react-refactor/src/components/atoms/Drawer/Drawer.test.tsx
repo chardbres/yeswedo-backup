@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { SignIn } from './SignIn'
+import { DrawerLeft } from './Drawer'
 
 it("renders without crashing", () => {
-  shallow(<SignIn  />)
+  shallow(<DrawerLeft />)
 });
 
 export{}

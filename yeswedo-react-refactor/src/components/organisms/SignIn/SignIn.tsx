@@ -1,19 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
-import { css } from '@emotion/react'
+import { withRouter } from 'react-router-dom'
 import { withFirebase } from '../../../api/Firebase'
+import { compose } from 'recompose'
+import * as ROUTES from '../../../navigations/Routes'
+import { css } from '@emotion/react'
 
 // Custom component imports
-import { CommonButton, IconInput } from '../../atoms'
 import Logo from '../../../assets/images/yeswedo_logo.png'
+import { FullButton, IconInput } from '../../atoms'
+
+export const SignIn = () => (
+    <div css={SigninCSS}>
+        <img src={Logo} alt='YesWeDo' />
+        <SignInForm />
+    </div>
+)
 
 const INITIAL_STATE = {
     email: '',
-    password: ''
+    password: '',
+    error: null
 }
 
-export const SignIn = props => {
-    const [error, setError] = useState(null)
+export const SignInFormBase = props => {
     const [credentials, setCredentials] = useState({
         ...INITIAL_STATE
     })
@@ -24,10 +34,14 @@ export const SignIn = props => {
 
         props.firebase
             .doSignInWithEmailAndPassword(email, password)
-            .then(() => setCredentials({ ...INITIAL_STATE }))
-            .catch(error => {
-                setError({ ...error })
+            .then(user => {
+                setCredentials({ ...INITIAL_STATE })
+                props.history.push(ROUTES.HOME)
             })
+            .catch(error => {
+                setCredentials({ ...error, [error]: error })
+            })
+
         event.preventDefault()
     }
 
@@ -35,52 +49,75 @@ export const SignIn = props => {
         setCredentials(credentials => ({ ...credentials, [event.target.name]: event.target.value }))
     }
 
-
     return (
-        <div css={SigninCSS}>
-            <div className='logo' >
-                <img src={Logo} alt='YesWeDo' />
-            </div>
-            <form className='form' onSubmit={onSubmit}>
-                <IconInput name='email' placeholder='Email' label='Username' type='username' onChange={onChange} value={credentials.email}/>
-                <IconInput name='password' placeholder='Password' label='Password' type='password' onChange={onChange} value={credentials.password}/>
-                <CommonButton color='primary' disabled={false} elevation={false} label='Sign In' type='submit' variant='contained' />
-            </form>
-        </div>
+        <form css={formCSS} onSubmit={onSubmit} >
+            <IconInput 
+                className='input' 
+                name='email' 
+                placeholder='Email' 
+                label='Username' 
+                size='small' 
+                type='username' 
+                onChange={onChange} 
+                value={credentials.email}
+            />
+            <IconInput 
+                className='input' 
+                name='password' 
+                placeholder='Password' 
+                label='Password' 
+                size='small' 
+                type='password' 
+                onChange={onChange} 
+                value={credentials.password}
+            />
+            <FullButton 
+                className='button' 
+                color='primary' 
+                disabled={false} 
+                elevation={false} 
+                label='Sign In' 
+                type='submit' 
+            />
+
+            {credentials.error && <p>{credentials.error}</p>}
+        </form>
     )
 }
 
+const SignInForm = compose(
+    withRouter,
+    withFirebase,
+)(SignInFormBase)
+
+// Styling
 const SigninCSS = css`
-    border: 1px solid gray;
+    border: 1px solid lightgrey;
+    width: 500px;
     display: flex;
     flex-direction: row;
-    height: 50vh;
-    width: 40vw;
+    height: 300px;
+    width: 600px;
 
-    .logo {
+    img {
         height: 100%;
-
-        img {
-            height: 100%;
-            width: auto;
-        }
-    }
-
-    .form {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: .5rem;
-        width: 100%;
-
-        .button {
-            width: 8rem;
-        }
-
-        .input {
-            width: 100%;
-        }
+        width: auto;
     }
 `
 
+const formCSS = css`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+
+    .button {
+        width: 8rem;
+    }
+
+    .input {
+        width: 100%;
+    }
+`

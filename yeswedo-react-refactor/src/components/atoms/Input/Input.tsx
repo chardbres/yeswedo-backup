@@ -16,8 +16,7 @@ export const BasicInput = ({ variant }) => {
     )
 }
 
-export const IconInput = ({ label, name, placeholder, type, value, onChange  }) => {
-    // const [text, setText] = useState('')
+export const IconInput = ({ className, label, name, placeholder, size, type, value, onChange  }) => {
 
     const iconType = type => {
         if (type === 'username') {
@@ -48,6 +47,7 @@ export const IconInput = ({ label, name, placeholder, type, value, onChange  }) 
             onChange={onChange}
             InputProps={iconType(type)}
             placeholder={placeholder}
+            size={size}
         />
     )
 }
@@ -57,9 +57,11 @@ BasicInput.propTypes = {
 }
 
 IconInput.propTypes = {
+    className: PropTypes.string,
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
     placeholder: PropTypes.string,
+    size: PropTypes.string,
     type: PropTypes.oneOf([ 'username', 'password' ]).isRequired,
     value: PropTypes.string
 }

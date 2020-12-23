@@ -1,15 +1,30 @@
 import React from 'react';
-// import { Route } from 'react-router-dom'
+import { 
+  BrowserRouter as Router, 
+  Route 
+} from 'react-router-dom'
 
 // Custom component imports
-import { SignUp } from '../src/components/organisms'
+import { 
+  HomePage, 
+  LandingPage,
+  SignInPage,
+  SignUpPage
+} from '../src/pages'
 
-function App() {
+import * as ROUTES from '../src/navigations/Routes'
+
+const App = () => {
   return (
-    <div className="App">
-        <SignUp />
-    </div>
-  );
+    <Router>
+        <div className="App">
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route path={ROUTES.HOME} component={HomePage} />
+          <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+          <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App

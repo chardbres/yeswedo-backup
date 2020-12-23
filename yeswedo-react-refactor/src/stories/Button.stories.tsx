@@ -1,54 +1,67 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import { CommonButton } from '../components/atoms/Button/Button'
+import { 
+    FullButton, 
+    OutlinedButton,
+    TextButton
+} from '../components/atoms/Button/Button'
 
 export default {
     title: 'Components/Atoms/Button',
 } as Meta
 
 export const Primary = () => (
-    <CommonButton 
+    <FullButton
         color='primary'
+        disabled={false}
+        elevation={false}
         label='Primary'
-        variant='contained'
+        type='submit'
     />
 )
-
 
 export const Secondary = () => (
-    <CommonButton 
+    <FullButton
         color='secondary'
+        disabled={false}
+        elevation={false}
         label='Secondary'
-        variant='contained'
+        type='submit'
     />
 )
 
-export const PrimaryOutlined = () => (
-    <CommonButton 
+export const OutlinedPrimary = () => (
+    <OutlinedButton
         color='primary'
+        disabled={false}
         label='Primary'
-        variant='outlined'
+        type='submit'
     />
 )
 
-export const SecondaryOutlined = () => (
-    <CommonButton 
+export const OutlinedSecondary = () => (
+    <OutlinedButton
         color='secondary'
+        disabled={false}
         label='Secondary'
-        variant='outlined'
+        type='submit'
     />
 )
 
-export const PrimaryText = () => (
-    <CommonButton 
-        color='primary'
+export const TextPrimary = () => (
+    <TextButton
+        color='primary' 
+        disabled={false}
         label='Primary'
+        type='submit'
     />
 )
 
-export const SecondaryText = () => (
-    <CommonButton 
-    color='secondary'
-    label='Secondary'
-    />
+export const textSecondary = () => (
+    <TextButton
+        color='secondary' 
+        disabled={false}
+        label='Secondary'
+        type='submit'
+/>
 )

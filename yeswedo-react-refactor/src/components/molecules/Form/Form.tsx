@@ -3,19 +3,19 @@ import React from 'react'
 import { css, jsx } from '@emotion/react'
 import PropTypes from 'prop-types'
 
-import { CommonButton, BasicInput } from '../../atoms'
+import { FullButton, BasicInput } from '../../atoms'
 
 const Form = ({  buttonColor, buttonLabel, buttonVariant, elevation, inputVariant }) => {
     return (
         <div css={formDiv}>
             <BasicInput variant={inputVariant} />
-            <CommonButton
+            <FullButton
+                className=''
                 color={buttonColor}
                 disabled={false}
                 elevation={elevation}  
                 label={buttonLabel}
                 type=''
-                variant={buttonVariant}
             />
         </div>
     )
