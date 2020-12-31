@@ -7,6 +7,6 @@ it("renders without crashing", () => {
   shallow(<FullButton label='Test Button' />)
   shallow(<OutlinedButton label='Test Button' />)
   shallow(<TextButton label='Test Button' />)
-});
+})
 
 export{}

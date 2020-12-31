@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { DrawerLeft } from './Drawer'
+import { Menu } from './Menu'
 
 it("renders without crashing", () => {
-  shallow(<DrawerLeft />)
+  shallow(<Menu />)
 });
 
 export{}

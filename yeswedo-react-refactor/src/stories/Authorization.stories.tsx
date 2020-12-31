@@ -7,14 +7,6 @@ export default {
     title: 'Components/Organisms/Authorization'
 } as Meta
 
-// export const SignUpForm = () => (
-//     <SignUp />
-// )
-
-// export const SignInForm = () => (
-//     <SignIn />
-// )
-
 storiesOf('Authorization', module)
     .addDecorator(story => (
         <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
