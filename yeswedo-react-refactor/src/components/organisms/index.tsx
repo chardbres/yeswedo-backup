@@ -1,3 +1,7 @@
 export { SignIn } from './SignIn/SignIn'
 export { SignUp } from './SignUp/SignUp'
 export { Summary } from './Summary/Summary'
+export { BillAmount } from './BillAmount/BillAmount'
+export { BillSources } from './BillSources/BillSources'
+export { HoursByEmployee } from './/HoursByEmployee/HoursByEmployee'
+export { Billables } from './Billables/Billables'

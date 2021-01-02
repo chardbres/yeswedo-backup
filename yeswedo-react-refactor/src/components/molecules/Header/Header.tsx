@@ -18,11 +18,7 @@ const styles = makeStyles({
     appBar: {
         background: '#fff',
         color: 'gray',
-        display: 'flex',
-        position: 'fixed',
-        left: '12vw',
-        top: 0,
-        width: '88vw'
+        paddingLeft: '12vw'
     },
     title: {
         flexGrow: 1

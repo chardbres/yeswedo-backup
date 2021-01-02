@@ -1,0 +1,17 @@
+[
+    {
+      "name": "Bill",
+      "hours": 40,
+      "hoursColor": "hsl(50, 70%, 50%)"
+    },
+    {
+      "name": "Fred",
+      "hours": 174,
+      "hourscolor": "hsl(323, 70%, 50%)"
+    },
+    {
+      "name": "Murray",
+      "hours": 25,
+      "hourscolor": "hsl(258, 70%, 50%)"
+    }
+  ]

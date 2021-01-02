@@ -42,7 +42,8 @@ export const SummaryCard = ({ color, title, type, value }) => {
         <Card>
             <CardContent style={{ borderLeft: `4px solid ${color}` }}>
                 <Typography 
-                    style={{ color: `${color}`, 
+                    style={{ 
+                    color: `${color}`, 
                     fontFamily: 'Nunito',
                     fontWeight: 'bold' }} 
                     variant='subtitle2'
@@ -76,5 +77,6 @@ const contentCSS = css`
     h1 {
         color: #5a5c69;
         font-family: Nunito;
+        margin: 0;
     }
 `

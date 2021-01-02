@@ -42,7 +42,6 @@ const styles = makeStyles({
 })
 
 export const Menu = () => {
-
     const classes = styles()
 
     return (

@@ -1,12 +1,14 @@
-import React from 'react'
+/** @jsxImportSource @emotion/react */
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { SummaryCard } from '../../atoms'
+import { SectionTitle, SummaryCard } from '../../atoms'
+import { css } from '@emotion/react'
 
 const styles = makeStyles({
     summaryRow: {
+        borderBottom: '3px solid #2c3e50',
         margin: '0 auto',
-        width: '100%'
+        width: '80vw'
     }
 })
 
@@ -14,21 +16,26 @@ export const Summary = () => {
     const classes = styles()
 
     return (
-        <section>
+        <section css={summaryCSS} >
+            <SectionTitle title='SUMMARY' />
             <Grid classes={{ root: classes.summaryRow }} container spacing={4} >
                 <Grid item xs={3} >
-                    <SummaryCard color='red' title='Test 1' type='Receipt' value={0} />
+                    <SummaryCard color='#4E73DF' title='NUMBER OF BILLS' type='Receipt' value={0} />
                 </Grid>
                 <Grid item xs={3} >
-                    <SummaryCard color='blue' title='Test 2' type='Hours' value={0} />
+                    <SummaryCard color='#f6c23e' title='HOURS BILLED' type='Hours' value={0} />
                 </Grid>
                 <Grid item xs={3} >
-                    <SummaryCard color='green' title='Test 3' type='Dollar' value={0} />
+                    <SummaryCard color='#1CC88A' title='TOTAL EXPENSES' type='Dollar' value={0} />
                 </Grid>
                 <Grid item xs={3} >
-                    <SummaryCard color='magenta' title='Test 4' type='Customers' value={0} />
+                    <SummaryCard color='#E74A3B' title='CUSTOMERS SERVED' type='Customers' value={0} />
                 </Grid>
             </Grid>
         </section>
     )
 }
+
+const summaryCSS = css`
+   padding: 8vh 0 0 12vw;
+`
