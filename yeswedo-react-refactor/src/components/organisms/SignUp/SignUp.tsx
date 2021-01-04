@@ -35,7 +35,7 @@ const SignUpFormBase = props => {
             .doCreateUserWithEmailAndPassword(credentials.email, credentials.passwordOne)
             .then(user => {
                 setCredentials({ ...INITIAL_STATE })
-                props.history.push(ROUTES.HOME)
+                props.history.push(ROUTES.DASHBOARD)
             })
             .catch(error => {
                 setCredentials({...error, [error]: error})

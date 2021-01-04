@@ -9,8 +9,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
+import { AccountMenu } from '../../molecules'
 
-import Arrow from '@material-ui/icons/ChevronRight'
 import Message from '@material-ui/icons/ChatBubble'
 import Notification from '@material-ui/icons/Notifications'
 
@@ -46,7 +46,7 @@ export const Header = ({ title, user }) => {
                 <div css={avatarCSS}>
                     <p>{user}</p>
                     <Avatar />
-                    <Arrow />
+                    <AccountMenu />
                 </div>
             </Toolbar>
         </AppBar>

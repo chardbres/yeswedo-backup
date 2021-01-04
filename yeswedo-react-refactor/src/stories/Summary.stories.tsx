@@ -1,11 +1,11 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import { SummaryCard } from '../components/atoms'
+import { Summary } from '../components/organisms'
 
 export default {
-    title: 'Components/Atoms/Summary',
+    title: 'Components/Organisms/Summary',
 } as Meta
 
 export const SummaryComponent = () => (
-    <SummaryCard color='red' title='Customers' type='Receipt' value={37} />
+    <Summary />
 )

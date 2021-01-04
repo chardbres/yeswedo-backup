@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { Header, Menu } from '../../components/molecules'
+import { Header, Menu } from '../../components/organisms'
 import { Billables, BillAmount, BillSources, HoursByEmployee } from '../../components/organisms'
 import { Summary } from '../../components/organisms'
 import { css } from '@emotion/react'
@@ -9,7 +9,7 @@ import barData from '../../components/organisms/BillAmount/data.json'
 import barData2 from '../../components/organisms/HoursByEmployee/data.json'
 import pieData from '../../components/organisms/BillSources/data.json'
 
-export const HomePage = () => {
+export const Dashboard = () => {
 
     return (
         <div>

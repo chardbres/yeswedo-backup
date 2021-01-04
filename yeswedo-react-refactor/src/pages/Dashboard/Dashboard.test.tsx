@@ -1,10 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { HomePage } from './HomePage'
+import { Dashboard } from './Dashboard'
 
 it("renders without crashing", () => {
-  shallow(<HomePage  />)
+  shallow(<Dashboard  />)
 });
 
 export{}

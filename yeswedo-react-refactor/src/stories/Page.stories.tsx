@@ -1,11 +1,11 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import { HomePage } from '../pages/HomePage/HomePage'
+import { Dashboard } from '../pages/Dashboard/Dashboard'
 
 export default {
     title: 'Pages',
 } as Meta
 
-export const Home = (
-    <HomePage />
+export const DashboardPage = (
+    <Dashboard />
 )

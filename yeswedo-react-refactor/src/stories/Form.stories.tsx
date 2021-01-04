@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import Form from '../components/molecules/Form/Form'
+import { Form } from '../components/molecules/Form/Form'
 
 export default {
     title: 'Components/Molecules/Form'

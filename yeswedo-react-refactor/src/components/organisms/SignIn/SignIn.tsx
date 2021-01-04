@@ -1,32 +1,38 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { withFirebase } from '../../../api/Firebase'
 import { compose } from 'recompose'
-import * as ROUTES from '../../../navigations/Routes'
+import { useAuth } from '../../../context/auth'
 import { css } from '@emotion/react'
 
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
+import { error } from 'console'
 
-export const SignIn = () => (
-    <div css={SigninCSS}>
-        <img src={Logo} alt='YesWeDo' />
-        <SignInForm />
-    </div>
-)
+export const SignIn = () => {
+    return (
+        <div css={SigninCSS}>
+            <img src={Logo} alt='YesWeDo' />
+            <SignInForm />
+        </div>
+    )
+}
 
 const INITIAL_STATE = {
     email: '',
     password: '',
-    error: null
 }
 
 export const SignInFormBase = props => {
     const [credentials, setCredentials] = useState({
         ...INITIAL_STATE
     })
+    const [isLoggedIn, setLoggedin] = useState(false)
+    const [error, setError] = useState(false)
+    const { setAuthTokens } = useAuth()
+
 
     const onSubmit = event => {
         const email = credentials.email
@@ -34,19 +40,27 @@ export const SignInFormBase = props => {
 
         props.firebase
             .doSignInWithEmailAndPassword(email, password)
-            .then(user => {
+            .then(res => {
+                console.log(res.status)
+                if (res.status !== 400) {
+                    setAuthTokens(res.user.refreshToken)
+                    setLoggedin(true)
+                } else {
+                    setError(true)
+                }
                 setCredentials({ ...INITIAL_STATE })
-                props.history.push(ROUTES.HOME)
             })
-            .catch(error => {
-                setCredentials({ ...error, [error]: error })
-            })
+            .catch(error => {setError(true)})
 
         event.preventDefault()
     }
 
     const onChange = event => {
         setCredentials(credentials => ({ ...credentials, [event.target.name]: event.target.value }))
+    }
+
+    if (isLoggedIn) {
+        return <Redirect to='/dashboard' />
     }
 
     return (
@@ -80,7 +94,7 @@ export const SignInFormBase = props => {
                 type='submit' 
             />
 
-            {credentials.error && <p>{credentials.error}</p>}
+            {error && <p>{error}</p>}
         </form>
     )
 }

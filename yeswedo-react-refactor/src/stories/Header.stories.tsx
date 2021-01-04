@@ -1,9 +1,9 @@
 import React from 'react'
 import { Meta } from '@storybook/react'
-import { Header } from '../components/molecules'
+import { Header } from '../components/organisms'
 
 export default {
-    title: 'Components/Molecules/Header',
+    title: 'Components/Organisms/Header',
 } as Meta
 
 export const CommonHeader = () => (

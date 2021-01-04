@@ -2,7 +2,7 @@ import React from 'react'
 import { MemoryRouter } from 'react-router'
 import WebFont from 'webfontloader'
 import { Meta, storiesOf } from '@storybook/react'
-import { Menu } from '../components/molecules'
+import { Menu } from '../components/organisms'
 
 // WebFont load is required to display correct font
 WebFont.load({
@@ -12,7 +12,7 @@ WebFont.load({
 })
 
 export default {
-    title: 'Components/Atoms/Menu',
+    title: 'Components/Organisms/Menu',
 } as Meta
 
 storiesOf('Nav', module)

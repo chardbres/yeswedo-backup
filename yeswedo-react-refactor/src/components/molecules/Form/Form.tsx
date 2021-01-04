@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { css, jsx } from '@emotion/react'
+import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
 
 import { FullButton, BasicInput } from '../../atoms'
 
-const Form = ({  buttonColor, buttonLabel, buttonVariant, elevation, inputVariant }) => {
+export const Form = ({  buttonColor, buttonLabel, buttonVariant, elevation, inputVariant }) => {
     return (
         <div css={formDiv}>
             <BasicInput variant={inputVariant} />
@@ -30,8 +30,6 @@ Form.propTypes = {
     // Input props
     inputVariant: PropTypes.string.isRequired
 }
-
-export default Form
 
 const formDiv = css`
     display: flex;
