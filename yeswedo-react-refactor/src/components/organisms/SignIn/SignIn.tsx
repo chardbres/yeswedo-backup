@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { withFirebase } from '../../../api/Firebase'
 import { compose } from 'recompose'
@@ -9,30 +9,41 @@ import { css } from '@emotion/react'
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
-import { error } from 'console'
+// import { error } from 'console'
+
 
 export const SignIn = () => {
     return (
         <div css={SigninCSS}>
             <img src={Logo} alt='YesWeDo' />
-            <SignInForm />
+            <SignInForm/>
         </div>
     )
 }
 
-const INITIAL_STATE = {
-    email: '',
-    password: '',
-}
 
 export const SignInFormBase = props => {
     const [credentials, setCredentials] = useState({
-        ...INITIAL_STATE
+        email: '',
+        password: ''
     })
-    const [isLoggedIn, setLoggedin] = useState(false)
+    const [userState, setUserState] = useState({
+        name: '',
+        uid: '',
+        token: '',
+        isLoggedIn: false
+    })
     const [error, setError] = useState(false)
     const { setAuthTokens } = useAuth()
 
+    useEffect(() => {
+        console.log('render')
+        if (userState.isLoggedIn) {
+            return () => {
+                console.log('unmount')
+            }
+        }
+    }, [userState])
 
     const onSubmit = event => {
         const email = credentials.email
@@ -41,14 +52,14 @@ export const SignInFormBase = props => {
         props.firebase
             .doSignInWithEmailAndPassword(email, password)
             .then(res => {
-                console.log(res.status)
-                if (res.status !== 400) {
-                    setAuthTokens(res.user.refreshToken)
-                    setLoggedin(true)
-                } else {
-                    setError(true)
-                }
-                setCredentials({ ...INITIAL_STATE })
+                if (res) 
+                setAuthTokens(res.user.refreshToken)
+                setUserState(userState => ({ ...userState, 
+                    name: res.user.email,
+                    uid: res.user.uid,
+                    token: res.user.refreshToken,
+                    isLoggedIn: true
+                }))
             })
             .catch(error => {setError(true)})
 
@@ -59,8 +70,10 @@ export const SignInFormBase = props => {
         setCredentials(credentials => ({ ...credentials, [event.target.name]: event.target.value }))
     }
 
-    if (isLoggedIn) {
-        return <Redirect to='/dashboard' />
+    if (userState.isLoggedIn) {
+        return (
+            <Redirect to='/dashboard' />
+        )
     }
 
     return (
@@ -101,12 +114,12 @@ export const SignInFormBase = props => {
 
 const SignInForm = compose(
     withRouter,
-    withFirebase,
+    withFirebase
 )(SignInFormBase)
 
 // Styling
 const SigninCSS = css`
-    border: 1px solid lightgrey;
+    border: 1px solid lightgray;
     width: 500px;
     display: flex;
     flex-direction: row;
@@ -124,7 +137,7 @@ const formCSS = css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 3rem 1rem;
     width: 100%;
 
     .button {

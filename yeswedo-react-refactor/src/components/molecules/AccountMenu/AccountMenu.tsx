@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useAuth } from '../../../context/auth'
+import { SignOut } from '../../organisms'
 import IconButton from '@material-ui/core/IconButton'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
-import MenuItem from '@material-ui/core/MenuItem'
+// import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import MoreVert from '@material-ui/icons/MoreVert'
 
@@ -13,15 +13,14 @@ export const AccountMenu = () => {
     const [isOpen, setOpen] = useState(false)
     const anchorRef = useRef<HTMLButtonElement>(null)
     const prevOpen = useRef(isOpen)
-    const { setAuthTokens } = useAuth()
 
     useEffect(() => {
-    if (prevOpen.current === true && isOpen === false) {
-      anchorRef.current!.focus();
-    }
+      if (prevOpen.current === true && isOpen === false) {
+        anchorRef.current!.focus()
+      }
 
-    prevOpen.current = isOpen;
-  }, [isOpen]);
+      prevOpen.current = isOpen
+    }, [isOpen])
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen)
@@ -41,10 +40,6 @@ export const AccountMenu = () => {
         }
     }
 
-    const logOut = () => {
-        setAuthTokens(null)
-    }
-
     return (
         <div>
             <IconButton 
@@ -56,27 +51,25 @@ export const AccountMenu = () => {
                 <MoreVert />
             </IconButton>
             <Popper open={isOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                    <MenuList 
-                        autoFocusItem={isOpen} 
-                        id="menu-list-grow" 
-                        onKeyDown={handleListKeyDown}
-                    >
-                    <MenuItem onClick={logOut}>Logout</MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList 
+                          autoFocusItem={isOpen} 
+                          id="menu-list-grow" 
+                          onKeyDown={handleListKeyDown}
+                      >
+                        <SignOut />
+                      </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+            </Popper>
         </div>
     )
-
-  
 }

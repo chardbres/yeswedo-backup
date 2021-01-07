@@ -21,6 +21,8 @@ const styles = makeStyles({
         paddingLeft: '12vw'
     },
     title: {
+        fontFamily: 'Nunito',
+        fontWeight: 'bold',
         flexGrow: 1
     }
 })
@@ -31,7 +33,7 @@ export const Header = ({ title, user }) => {
     return (
         <AppBar classes={{ root: classes.appBar }} >
             <Toolbar>
-                <Typography classes={{ root: classes.title }} variant='h6' >
+                <Typography classes={{ root: classes.title }} variant='h4' >
                     {title}
                 </Typography>
                 <div css={badgeCSS} >

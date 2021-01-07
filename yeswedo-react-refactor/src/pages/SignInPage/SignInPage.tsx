@@ -5,6 +5,7 @@ import { css } from '@emotion/react'
 import { SignIn } from '../../components/organisms'
 
 export const SignInPage = () => {
+
     return (
         <div css={SigninCSS}>
             <SignIn />
@@ -17,5 +18,4 @@ const SigninCSS = css`
     display: flex;
     height: 100vh;
     justify-content: center;
-    width: 100vw;
 `

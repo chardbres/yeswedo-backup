@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header, Menu } from '../../components/organisms'
 import { Billables, BillAmount, BillSources, HoursByEmployee } from '../../components/organisms'
 import { Summary } from '../../components/organisms'
@@ -9,7 +9,12 @@ import barData from '../../components/organisms/BillAmount/data.json'
 import barData2 from '../../components/organisms/HoursByEmployee/data.json'
 import pieData from '../../components/organisms/BillSources/data.json'
 
-export const Dashboard = () => {
+const Dashboard = props => {
+    const [user] = useState(props)
+
+    useEffect(() => {
+        console.log(user)
+    })
 
     return (
         <div>
@@ -27,6 +32,8 @@ export const Dashboard = () => {
         </div>
     )
 }
+
+export default Dashboard
 
 const canvasCSS = css`
     background-color: #dcdcdc;

@@ -1,41 +1,54 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { withFirebase } from '../../../api/Firebase'
 import { compose } from 'recompose'
-import * as ROUTES from '../../../navigations/Routes'
+import { useAuth } from '../../../context/auth'
+// import * as ROUTES from '../../../navigations/Routes'
 import { css } from '@emotion/react'
 
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
 
-export const SignUp = () => (
-    <div css={SignupCSS}>
-        <img src={Logo} alt='YesWeDo' />
-        <SignUpForm />
-    </div>
-)
+export const SignUp = () => {
+    return (
+        <div css={SignupCSS}>
+            <img src={Logo} alt='YesWeDo' />
+            <SignUpForm />
+        </div>
+    )
+}
 
 const INITIAL_STATE = {
     email: '',
     passwordOne: '',
-    passwordTwo: '',
-    error: null
+    passwordTwo: ''
 }
 
 const SignUpFormBase = props => {
     const [credentials, setCredentials] = useState({ 
         ...INITIAL_STATE 
     })
+    const [isSignedUp, setSignedUp] = useState(false)
+    const [error, setError] = useState(false)
+    const { setAuthTokens } = useAuth()
 
     const onSubmit = event => {
+        const email = credentials.email
+        const password = credentials.passwordOne
 
         props.firebase
-            .doCreateUserWithEmailAndPassword(credentials.email, credentials.passwordOne)
-            .then(user => {
-                setCredentials({ ...INITIAL_STATE })
-                props.history.push(ROUTES.DASHBOARD)
+            .doCreateUserWithEmailAndPassword(email, password)
+            .then(res => {
+                if (res.status !== 400) {
+                    setAuthTokens(res.user.refreshToken)
+                    setSignedUp(true)
+                } else {
+                    setError(true)
+                }
+                // setCredentials({ ...INITIAL_STATE })
+                // props.history.push(ROUTES.DASHBOARD)
             })
             .catch(error => {
                 setCredentials({...error, [error]: error})
@@ -53,6 +66,10 @@ const SignUpFormBase = props => {
         credentials.passwordOne === '' || 
         credentials.email === ''
     )
+
+    if (isSignedUp) {
+        return <Redirect to='/dashboard' />
+    }
 
     return (
         <form css={formCSS} onSubmit={onSubmit}>
@@ -95,7 +112,7 @@ const SignUpFormBase = props => {
                 type='submit' 
             />
 
-            {credentials.error && <p>{credentials.error}</p>}
+            {error && <p>{error}</p>}
         </form>
     )
 }
@@ -107,7 +124,7 @@ const SignUpForm = compose(
 
 // Styling
 const SignupCSS = css`
-    border: 1px solid lightgrey;
+    border: 1px solid lightgray;
     width: 500px;
     display: flex;
     flex-direction: row;
@@ -125,7 +142,7 @@ const formCSS = css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 2rem 1rem;
     width: 100%;
 
     .button {

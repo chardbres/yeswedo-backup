@@ -8,7 +8,8 @@ const styles = makeStyles({
     summaryRow: {
         borderBottom: '3px solid #2c3e50',
         margin: '0 auto',
-        width: '80vw'
+        padding: '0 2rem 1rem',
+        width: '84vw'
     }
 })
 
@@ -37,5 +38,6 @@ export const Summary = () => {
 }
 
 const summaryCSS = css`
-   padding: 8vh 0 0 12vw;
+    margin-bottom: 2rem;
+    padding: 8vh 0 0 12vw;
 `
