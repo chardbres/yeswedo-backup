@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import { Header, Menu } from '../../components/organisms'
 import { Billables, BillAmount, BillSources, HoursByEmployee } from '../../components/organisms'
 import { Summary } from '../../components/organisms'
@@ -10,17 +11,13 @@ import barData2 from '../../components/organisms/HoursByEmployee/data.json'
 import pieData from '../../components/organisms/BillSources/data.json'
 
 const Dashboard = props => {
-    const [user] = useState(props)
-
-    useEffect(() => {
-        console.log(user)
-    })
+    const activeUser = props.user.user
 
     return (
         <div>
             <div css={canvasCSS} >
                 <Menu />
-                <Header title='Dashboard' user='Test User' />
+                <Header title='Dashboard' user={activeUser.name} />
                 <Summary />
                 <BillAmount data={barData} />
                 <div css={detailCSS}>
@@ -33,7 +30,11 @@ const Dashboard = props => {
     )
 }
 
-export default Dashboard
+const mapStateToProps = state => {
+    return { user: state.user }
+}
+
+export default connect(mapStateToProps)(Dashboard)
 
 const canvasCSS = css`
     background-color: #dcdcdc;

@@ -6,6 +6,10 @@ import { compose } from 'recompose'
 import { useAuth } from '../../../context/auth'
 import { css } from '@emotion/react'
 
+// Redux imports
+import { connect } from 'react-redux'
+import { addUser } from '../../../api/Redux/actions'
+
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
@@ -37,13 +41,10 @@ export const SignInFormBase = props => {
     const { setAuthTokens } = useAuth()
 
     useEffect(() => {
-        console.log('render')
         if (userState.isLoggedIn) {
-            return () => {
-                console.log('unmount')
-            }
+            props.addUser(userState)
         }
-    }, [userState])
+    }, [props, userState])
 
     const onSubmit = event => {
         const email = credentials.email
@@ -112,9 +113,14 @@ export const SignInFormBase = props => {
     )
 }
 
+const mapDispatchToProps = dispatch => {
+    return { addUser: user => dispatch(addUser(user))}
+}
+
 const SignInForm = compose(
     withRouter,
-    withFirebase
+    withFirebase,
+    connect(null, mapDispatchToProps)
 )(SignInFormBase)
 
 // Styling
