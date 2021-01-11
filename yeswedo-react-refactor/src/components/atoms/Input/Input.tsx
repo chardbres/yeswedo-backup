@@ -16,10 +16,10 @@ export const BasicInput = ({ variant }) => {
     )
 }
 
-export const IconInput = ({ className, label, name, placeholder, size, type, value, onChange  }) => {
+export const IconInput = ({ className, label, name, placeholder, size, tag, type, value, onChange  }) => {
 
     const iconType = type => {
-        if (type === 'username') {
+        if (tag === 'username') {
             return ({
                 startAdornment: (
                     <InputAdornment position='start'>
@@ -27,7 +27,7 @@ export const IconInput = ({ className, label, name, placeholder, size, type, val
                     </InputAdornment>
                 )
             })
-        } else if (type === 'password') {
+        } else if (tag === 'password') {
             return ({
                 startAdornment: (
                     <InputAdornment position='start'>
@@ -47,6 +47,7 @@ export const IconInput = ({ className, label, name, placeholder, size, type, val
             onChange={onChange}
             InputProps={iconType(type)}
             placeholder={placeholder}
+            type={type}
             size={size}
         />
     )

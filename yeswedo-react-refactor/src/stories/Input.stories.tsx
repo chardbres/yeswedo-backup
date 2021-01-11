@@ -17,7 +17,8 @@ export const UsernameInput = () => (
     <IconInput
         label='Username'
         onChange=''
-        type='username'
+        tag='username'
+        type='text'
         value=''
     />
 )
@@ -26,6 +27,7 @@ export const PasswordInput = () => (
     <IconInput
         label='Password'
         onChange=''
+        tag='password'
         type='password'
         value=''
     />

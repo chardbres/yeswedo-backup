@@ -78,8 +78,9 @@ const SignUpFormBase = props => {
                 name='email' 
                 label='Username' 
                 placeholder='Email' 
-                size='small' 
-                type='username' 
+                size='small'
+                tag='username' 
+                type='text' 
                 value={credentials.email} 
                 onChange={onChange} 
             />
@@ -88,7 +89,8 @@ const SignUpFormBase = props => {
                 name='passwordOne' 
                 label='Password' 
                 placeholder='Password' 
-                size='small' 
+                size='small'
+                tag='password' 
                 type='password' 
                 value={credentials.passwordOne} 
                 onChange={onChange} 
@@ -99,6 +101,7 @@ const SignUpFormBase = props => {
                 label='Repeat Password' 
                 placeholder='Repeat Password' 
                 size='small' 
+                tag='password'
                 type='password' 
                 value={credentials.passwordTwo} 
                 onChange={onChange} 

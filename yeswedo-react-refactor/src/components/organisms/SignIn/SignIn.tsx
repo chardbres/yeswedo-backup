@@ -13,7 +13,6 @@ import { addUser } from '../../../api/Redux/actions'
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
-// import { error } from 'console'
 
 
 export const SignIn = () => {
@@ -27,24 +26,29 @@ export const SignIn = () => {
 
 
 export const SignInFormBase = props => {
+    // Sign-in credential state
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
+    // User state, set on successful login and added to store
     const [userState, setUserState] = useState({
         name: '',
         uid: '',
         token: '',
         isLoggedIn: false
     })
-    const [error, setError] = useState(false)
+    // Sets auth tokens into localStore
     const { setAuthTokens } = useAuth()
+    // Error state
+    const [error, setError] = useState('')
+    const { addUser } = props
 
     useEffect(() => {
         if (userState.isLoggedIn) {
-            props.addUser(userState)
+           addUser(userState)
         }
-    }, [props, userState])
+    }, [addUser, userState])
 
     const onSubmit = event => {
         const email = credentials.email
@@ -54,15 +58,15 @@ export const SignInFormBase = props => {
             .doSignInWithEmailAndPassword(email, password)
             .then(res => {
                 if (res) 
-                setAuthTokens(res.user.refreshToken)
-                setUserState(userState => ({ ...userState, 
-                    name: res.user.email,
-                    uid: res.user.uid,
-                    token: res.user.refreshToken,
-                    isLoggedIn: true
+                    setAuthTokens(res.user.refreshToken)
+                    setUserState(userState => ({ ...userState, 
+                        name: res.user.email,
+                        uid: res.user.uid,
+                        token: res.user.refreshToken,
+                        isLoggedIn: true
                 }))
             })
-            .catch(error => {setError(true)})
+            .catch(error => {setError('Inavlid login')})
 
         event.preventDefault()
     }
@@ -85,7 +89,8 @@ export const SignInFormBase = props => {
                 placeholder='Email' 
                 label='Username' 
                 size='small' 
-                type='username' 
+                tag='username'
+                type='text' 
                 onChange={onChange} 
                 value={credentials.email}
             />
@@ -94,7 +99,8 @@ export const SignInFormBase = props => {
                 name='password' 
                 placeholder='Password' 
                 label='Password' 
-                size='small' 
+                size='small'
+                tag='password' 
                 type='password' 
                 onChange={onChange} 
                 value={credentials.password}
@@ -114,7 +120,7 @@ export const SignInFormBase = props => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return { addUser: user => dispatch(addUser(user))}
+    return { addUser: user => dispatch(addUser(user)) }
 }
 
 const SignInForm = compose(
