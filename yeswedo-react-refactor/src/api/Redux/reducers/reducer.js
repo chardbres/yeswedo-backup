@@ -4,8 +4,8 @@ import dataReducer from './dataReducer'
 import userReducer from './userReducer'
 
 const rootReducer = combineReducers({
-    data: dataReducer,
-    user: userReducer
+    dashboardData: dataReducer,
+    activeUser: userReducer
 })
 
 export default rootReducer

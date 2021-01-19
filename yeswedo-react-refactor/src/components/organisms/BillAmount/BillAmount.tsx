@@ -8,7 +8,7 @@ import { css } from '@emotion/react'
 export const BillAmount = ({ data }) => {
     return (
         <section css={sectionCSS} >
-            <SectionTitle title='AMOUNT BILLED PER DAY' />
+            <SectionTitle title='HOURS BILLED PER DAY' />
             <Paper css={chartCSS} >
                 <ResponsiveBar
                     data={data}

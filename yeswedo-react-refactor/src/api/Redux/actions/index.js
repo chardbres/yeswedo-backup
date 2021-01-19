@@ -3,7 +3,17 @@ export const addUser = user => ({
     payload: user
 })
 
-export const addData = data => ({
-    type: 'ADD_DATA',
+export const addActivityData = data => ({
+    type: 'ADD_ACTIVITY_DATA',
+    payload: data
+})
+
+export const addBillsData = data => ({
+    type: 'ADD_BILLS_DATA',
+    payload: data
+})
+
+export const addJobsData = data => ({
+    type: 'ADD_JOBS_DATA',
     payload: data
 })

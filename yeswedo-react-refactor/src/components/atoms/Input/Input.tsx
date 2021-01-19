@@ -63,7 +63,8 @@ IconInput.propTypes = {
     name: PropTypes.string,
     placeholder: PropTypes.string,
     size: PropTypes.string,
-    type: PropTypes.oneOf([ 'username', 'password' ]).isRequired,
+    tag: PropTypes.oneOf([ 'username', 'password' ]).isRequired,
+    type: PropTypes.string,
     value: PropTypes.string
 }
 

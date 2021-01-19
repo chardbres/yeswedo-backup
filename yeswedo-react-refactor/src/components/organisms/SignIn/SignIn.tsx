@@ -120,7 +120,7 @@ export const SignInFormBase = props => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return { addUser: user => dispatch(addUser(user)) }
+    return { addUser: activeUser => dispatch(addUser(activeUser)) }
 }
 
 const SignInForm = compose(
