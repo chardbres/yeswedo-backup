@@ -13,7 +13,17 @@ export const addBillsData = data => ({
     payload: data
 })
 
+export const addCustomerData = data => ({
+    type: 'ADD_CUSTOMER_DATA',
+    payload: data
+})
+
 export const addJobsData = data => ({
     type: 'ADD_JOBS_DATA',
+    payload: data
+})
+
+export const addWorkerData = data => ({
+    type: 'ADD_WORKER_DATA',
     payload: data
 })

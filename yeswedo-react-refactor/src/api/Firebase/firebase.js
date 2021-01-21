@@ -18,11 +18,16 @@ class Firebase {
     app.initializeApp(config)
 
     this.auth = app.auth()
+    this.db = app.database().ref()
     this.firestore = app.firestore()
-    this.data = []
+    // Data arrays
+    this.billsData = []
+    this.customerData = []
+    this.jobsData = []
+    this.workerData = []
   }
 
-  // Auth API
+  // Auth APIs
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password)
  
@@ -36,18 +41,57 @@ class Firebase {
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password)
 
-  // Database API
-  doGetDashboardData = (myUID) => { 
+  // Database APIs
+  doGetBillsData = myUID => { 
     this.firestore.collection('Bill Fanout').where('Client', '==', `${myUID}`).onSnapshot(snapshot => {
       snapshot.forEach(item => {
-        this.data.push(item.data())
+        this.billsData.push(item.data())
       })
     })
   }
 
-  returnData = () => {
-    return this.data
+  doGetCustomerData = myUID =>
+  this.db.child('Customer Fanout').child(myUID).orderByChild('Customer Name').on('value', snapshot => {
+    const obj = snapshot.val()
+    for (let prop in obj) {
+      let innerObj = {}
+      innerObj[prop] = obj[prop]
+      this.customerData.push(innerObj)
+    }
+  })
+
+  doGetJobsData = myUID =>
+    this.db.child('Jobs Board Fanout').child(myUID).orderByChild('Job Name').on('value', snapshot => {
+      const obj = snapshot.val()
+      for (let prop in obj) {
+        let innerObj = {}
+        innerObj[prop] = obj[prop]
+        this.jobsData.push(innerObj)
+      }
+    })
+
+  doGetWorkerData = workerID =>
+    this.db.child('Workers Fanout').child(workerID).once('value', snapshot => {
+      this.workerData.push(snapshot)
+    })
+
+  returnData = type => {
+    switch(type) {
+      case 'bills':
+        return this.billsData
+      case 'customers':
+        return this.customerData  
+      case 'jobs':
+        return this.jobsData
+      case 'worker':
+          return this.workerData
+      default:
+        return null
+    }
+
   }
+
+  clearData = () => this.data = []
 
 }
    

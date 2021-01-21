@@ -67,7 +67,7 @@ export const SignInFormBase = props => {
                 }))
             })
             .catch(error => {setError('Inavlid login')})
-
+            
         event.preventDefault()
     }
 
@@ -120,7 +120,9 @@ export const SignInFormBase = props => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return { addUser: activeUser => dispatch(addUser(activeUser)) }
+    return { 
+        addUser: activeUser => dispatch(addUser(activeUser)) 
+    }
 }
 
 const SignInForm = compose(

@@ -12,10 +12,20 @@ export default function dataReducer (state = initialState, action) {
                 ...state,
                 billsData: { data: action.payload }
             }
+        case 'ADD_CUSTOMER_DATA':
+            return {
+                ...state,
+                customerData: { data: action.payload }
+            }
         case 'ADD_JOBS_DATA': 
             return {
                 ...state,
-                JobsData: { data: action.payload }
+                jobsData: { data: action.payload }
+            }
+        case 'ADD_WORKER_DATA': 
+            return {
+                ...state,
+                workerData: { data: action.payload }
             }
         default:
             return state
