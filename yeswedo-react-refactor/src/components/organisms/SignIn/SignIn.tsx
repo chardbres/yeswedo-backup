@@ -1,14 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
-import { withFirebase } from '../../../api/Firebase'
+import firebase from '../../../api/Firebase/firebase'
+import * as _ from 'lodash'
+
+import { 
+    signIn
+} from '../../../api/Firebase/firebase'
 import { compose } from 'recompose'
 import { useAuth } from '../../../context/auth'
 import { css } from '@emotion/react'
 
 // Redux imports
 import { connect } from 'react-redux'
-import { addUser } from '../../../api/Redux/actions'
+import { 
+    addBillsCount,
+    addBillsData, 
+    addUser
+ } from '../../../api/Redux/actions'
 
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
@@ -26,45 +35,81 @@ export const SignIn = () => {
 
 
 export const SignInFormBase = props => {
+    const firestore = firebase.firestore()
+
     // Sign-in credential state
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
-    // User state, set on successful login and added to store
+    // User state
     const [userState, setUserState] = useState({
         name: '',
         uid: '',
         token: '',
         isLoggedIn: false
     })
+    // const [dataState, setDataState] = useState(null)
+    
+    const [isDataAddedToStore, setDataAddedToStore] = useState(false)
     // Sets auth tokens into localStore
-    const { setAuthTokens } = useAuth()
+    const { setAuthTokens } : any = useAuth()
     // Error state
     const [error, setError] = useState('')
-    const { addUser } = props
+    const {
+        addBillsCount,
+        addBillsData, 
+        addUser 
+    } = props
 
     useEffect(() => {
-        if (userState.isLoggedIn) {
-           addUser(userState)
+
+        const addUserToStore = async () => {
+            return addUser(userState)
         }
-    }, [addUser, userState])
+
+        const getBills = async () => {
+            firestore.collection('Bill Fanout').where('Client', '==', `${userState.uid}`).onSnapshot( function (querySnapshot) {
+                let billsArr : any[] = []
+        
+                querySnapshot.forEach(doc => {
+                    billsArr.push(doc.data())
+                })
+                
+                let finalArr = _.cloneDeep(billsArr)
+                addBillsData(finalArr)
+                addBillsCount(finalArr.length)
+            })
+        }
+
+        if (userState.isLoggedIn) {
+            addUserToStore()
+            // Gets the bills data
+            getBills()
+                .then(() => setDataAddedToStore(true))       
+        }
+
+
+    }, [userState.isLoggedIn])
 
     const onSubmit = event => {
+        
         const email = credentials.email
         const password = credentials.password
 
-        props.firebase
-            .doSignInWithEmailAndPassword(email, password)
+        const doSignIn = async () => {
+            return signIn(email, password)
+        }
+
+        doSignIn()
             .then(res => {
-                if (res) 
-                    setAuthTokens(res.user.refreshToken)
-                    setUserState(userState => ({ ...userState, 
-                        name: res.user.email,
-                        uid: res.user.uid,
-                        token: res.user.refreshToken,
-                        isLoggedIn: true
-                }))
+                setAuthTokens(res.user?.refreshToken)
+                setUserState({...userState,
+                    name: res.user?.email!,
+                    uid: res.user?.uid!,
+                    token: res.user?.refreshToken!,
+                    isLoggedIn: true
+                })
             })
             .catch(error => {setError('Inavlid login')})
             
@@ -75,7 +120,7 @@ export const SignInFormBase = props => {
         setCredentials(credentials => ({ ...credentials, [event.target.name]: event.target.value }))
     }
 
-    if (userState.isLoggedIn) {
+    if (isDataAddedToStore) {
         return (
             <Redirect to='/dashboard' />
         )
@@ -120,14 +165,15 @@ export const SignInFormBase = props => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return { 
-        addUser: activeUser => dispatch(addUser(activeUser)) 
+    return {
+        addUser: activeUser => dispatch(addUser(activeUser)),
+        addBillsCount: count => dispatch(addBillsCount(count)),
+        addBillsData: data => dispatch(addBillsData(data))
     }
 }
 
 const SignInForm = compose(
     withRouter,
-    withFirebase,
     connect(null, mapDispatchToProps)
 )(SignInFormBase)
 

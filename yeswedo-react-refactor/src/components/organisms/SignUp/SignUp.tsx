@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
-import { withFirebase } from '../../../api/Firebase'
 import { compose } from 'recompose'
 import { useAuth } from '../../../context/auth'
 // import * as ROUTES from '../../../navigations/Routes'
@@ -32,7 +31,7 @@ const SignUpFormBase = props => {
     })
     const [isSignedUp, setSignedUp] = useState(false)
     const [error, setError] = useState(false)
-    const { setAuthTokens } = useAuth()
+    const { setAuthTokens } : any = useAuth()
 
     const onSubmit = event => {
         const email = credentials.email
@@ -121,8 +120,7 @@ const SignUpFormBase = props => {
 }
 
 const SignUpForm = compose(
-    withRouter,
-    withFirebase
+    withRouter
 )(SignUpFormBase)
 
 // Styling

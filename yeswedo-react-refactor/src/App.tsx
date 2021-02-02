@@ -43,7 +43,7 @@ const App = (props) => {
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
         <div className="App">
-          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+          <Route exact path={ROUTES.LANDING} component={SignInPage} />
           <PrivateRoute path={ROUTES.DASHBOARD} component={Dashboard} />
           <Route path={ROUTES.SIGN_IN} component={SignInPage} />
           <Route path={ROUTES.SIGN_UP} component={SignUpPage} />

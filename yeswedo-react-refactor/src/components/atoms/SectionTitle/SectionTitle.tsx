@@ -8,7 +8,7 @@ export const SectionTitle = ({ title }) => (
 )
 
 SectionTitle.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.any.isRequired
 }
 
 const titleCSS = css`

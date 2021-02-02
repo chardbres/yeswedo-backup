@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import store from '../src/api/Redux/store'
 import App from './App'
 import WebFont from 'webfontloader'
-import Firebase, { FirebaseContext } from './api/Firebase'
+// import Firebase, { FirebaseContext } from './api/Firebase'
 
 // Loads the global webfont
 WebFont.load({
@@ -16,9 +16,7 @@ WebFont.load({
 
 ReactDOM.render(
   <Provider store={store}>
-      <FirebaseContext.Provider value={new Firebase()}>
-        <App />
-      </FirebaseContext.Provider>
-    </Provider>,
+      <App />
+  </Provider>,
   document.getElementById('root')
 )

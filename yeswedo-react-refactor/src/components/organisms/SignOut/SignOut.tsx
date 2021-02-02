@@ -1,29 +1,23 @@
 import React from 'react'
-import { withFirebase } from '../../../api/Firebase'
-import { compose } from 'recompose'
+import { signOut } from '../../../api/Firebase/firebase'
 import { useAuth } from '../../../context/auth'
 import MenuItem from '@material-ui/core/MenuItem'
 
 export const SignOut = () => {
     return (
-        <SignOutButton />
+        <SignOutBase />
     )
 }
 
 const SignOutBase = props => {
-    const { setAuthTokens } = useAuth()
+    const { setAuthTokens } : any = useAuth()
 
     const logOut = event => {
-        props.firebase
-            .doSignOut()
-            .then(setAuthTokens(''))
+        signOut()
+            .then(() => setAuthTokens(''))
     }
 
     return (
         <MenuItem onClick={logOut}>Logout</MenuItem>
     )
 }
-
-const SignOutButton = compose(
-    withFirebase
-)(SignOutBase)

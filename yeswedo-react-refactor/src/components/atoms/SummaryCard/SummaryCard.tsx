@@ -34,10 +34,6 @@ export const SummaryCard = ({ color, title, type, value }) => {
         }
     }
 
-    const setValue = (type, value) => {
-        return type === 'Dollar' ? <h1>$ {value}</h1> : <h1>{value}</h1>
-    }
-
     return (
         <Card>
             <CardContent style={{ borderLeft: `4px solid ${color}` }}>
@@ -51,7 +47,8 @@ export const SummaryCard = ({ color, title, type, value }) => {
                         {title}
                 </Typography>
                 <div css={contentCSS}>
-                    {setValue(type, value)}
+                    {type === 'Dollar' && <h1>$ {value}</h1>}
+                    {type !== 'Dollar' && <h1>{value}</h1>}
                     {setIcon(type)}
                 </div>
             </CardContent>
@@ -63,7 +60,7 @@ SummaryCard.propTypes = {
     color: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    value: PropTypes.number
+    value: PropTypes.any
 }
 
 const contentCSS = css`
