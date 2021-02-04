@@ -18,18 +18,45 @@ const styles = makeStyles({
 
 const Summary = (props) => {
     const classes = styles()
-    const billsDataLength = useSelector(state => state.dashboardData.billsCount)
-    const billsData = useSelector(state => state.dashboardData.billsData)
 
     const [data, setData] = useState({
         billsCount: 0,
-        bills: []
+        hoursBilled: 0,
+        totalExpenses: 0,
+        customers: 0
     })
 
     useEffect(() => {
-        setData(data => ({...data, billsCount: billsDataLength}))
-        setData(data => ({...data, bills: billsData }))
-    },[billsData, billsDataLength])
+        setData(data => ({...data,
+            billsCount: props.dashboardData.billsCount,
+            hoursBilled: calcHours(props.dashboardData.billsData),
+            totalExpenses: calcExpenses(props.dashboardData.billsData),
+            customers: props.dashboardData.customerCount
+        }))
+    },[props.dashboardData])
+
+    const calcHours = array => {
+        let hours = 0
+        if (array !== undefined) {
+            array.forEach(item => {
+                let time = parseFloat(item.Time)
+                hours+= time
+            })
+            return parseFloat(hours.toFixed(1))
+        }
+    }
+
+    const calcExpenses = array => {
+        let expenses = 0
+        if (array !== undefined) {
+            array.forEach(item => {
+                let rate = parseInt(item.Rate, 10)
+                let time = parseFloat(item.Time)
+                expenses+= rate * time
+            })
+            return parseFloat(expenses.toFixed(2))
+        }
+    }
 
     return (
         <Fragment> 
@@ -40,13 +67,13 @@ const Summary = (props) => {
                             <SummaryCard color='#4E73DF' title='NUMBER OF BILLS' type='Receipt' value={data.billsCount} />
                         </Grid>
                         <Grid item xs={3} >
-                            <SummaryCard color='#f6c23e' title='HOURS BILLED' type='Hours' value={data.billsCount} />
+                            <SummaryCard color='#f6c23e' title='HOURS BILLED' type='Hours' value={data.hoursBilled} />
                         </Grid>
                         <Grid item xs={3} >
-                            <SummaryCard color='#1CC88A' title='TOTAL EXPENSES' type='Dollar' value={data.billsCount} />
+                            <SummaryCard color='#1CC88A' title='TOTAL EXPENSES' type='Dollar' value={data.totalExpenses} />
                         </Grid>
                         <Grid item xs={3} >
-                            <SummaryCard color='#E74A3B' title='CUSTOMERS SERVED' type='Customers' value={data.billsCount} />
+                            <SummaryCard color='#E74A3B' title='CUSTOMERS SERVED' type='Customers' value={data.customers} />
                         </Grid>
                     </Grid>
             </section>

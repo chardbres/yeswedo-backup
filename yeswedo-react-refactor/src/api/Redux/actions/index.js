@@ -1,22 +1,22 @@
-export const addUser = user => ({
-    type: 'ADD_USER',
-    payload: user
-})
+// export const addUser = user => ({
+//     type: 'ADD_USER',
+//     payload: user
+// })
 
-// export const addActivityData = data => ({
-//     type: 'ADD_ACTIVITY_DATA',
+// // export const addActivityData = data => ({
+// //     type: 'ADD_ACTIVITY_DATA',
+// //     payload: data
+// // })
+
+// export const addBillsData = data => ({
+//     type: 'ADD_BILLS_DATA',
 //     payload: data
 // })
 
-export const addBillsData = data => ({
-    type: 'ADD_BILLS_DATA',
-    payload: data
-})
-
-export const addBillsCount = count => ({
-    type: 'ADD_BILLS_COUNT',
-    payload: count
-})
+// export const addBillsCount = count => ({
+//     type: 'ADD_BILLS_COUNT',
+//     payload: count
+// })
 
 // export const addCustomerData = data => ({
 //     type: 'ADD_CUSTOMER_DATA',
@@ -32,3 +32,13 @@ export const addBillsCount = count => ({
 //     type: 'ADD_WORKER_DATA',
 //     payload: data
 // })
+
+import dataActions from './dataActions'
+import userActions from './userActions'
+
+const allActions = {
+    dataActions,
+    userActions
+}
+
+export default allActions

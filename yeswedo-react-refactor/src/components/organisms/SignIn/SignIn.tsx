@@ -1,23 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
-import firebase from '../../../api/Firebase/firebase'
-import * as _ from 'lodash'
-
-import { 
-    signIn
-} from '../../../api/Firebase/firebase'
+import firebase, { signIn } from '../../../api/Firebase/firebase'
 import { compose } from 'recompose'
 import { useAuth } from '../../../context/auth'
 import { css } from '@emotion/react'
 
 // Redux imports
-import { connect } from 'react-redux'
-import { 
-    addBillsCount,
-    addBillsData, 
-    addUser
- } from '../../../api/Redux/actions'
+import allActions from '../../../api/Redux/actions'
+import { useDispatch } from 'react-redux'
 
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
@@ -35,57 +26,68 @@ export const SignIn = () => {
 
 
 export const SignInFormBase = props => {
+    const db = firebase.database().ref()
     const firestore = firebase.firestore()
+    const dispatch = useDispatch()
 
-    // Sign-in credential state
+    // Sets auth tokens into localStore
+    const { setAuthTokens } : any = useAuth()
+
+    // Component state 
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
     })
-    // User state
     const [userState, setUserState] = useState({
+        error: '',
         name: '',
         uid: '',
         token: '',
         isLoggedIn: false
     })
-    // const [dataState, setDataState] = useState(null)
-    
     const [isDataAddedToStore, setDataAddedToStore] = useState(false)
-    // Sets auth tokens into localStore
-    const { setAuthTokens } : any = useAuth()
-    // Error state
-    const [error, setError] = useState('')
-    const {
-        addBillsCount,
-        addBillsData, 
-        addUser 
-    } = props
-
+    // ------------------------------------------------------------------------
+   
     useEffect(() => {
-
+        
         const addUserToStore = async () => {
-            return addUser(userState)
+            dispatch(allActions.userActions.addUser(userState))
         }
 
-        const getBills = async () => {
-            firestore.collection('Bill Fanout').where('Client', '==', `${userState.uid}`).onSnapshot( function (querySnapshot) {
+        const getBills = async (id) => {
+            firestore.collection('Bill Fanout').where('Client', '==', `${id}`).onSnapshot( function (querySnapshot) {
                 let billsArr : any[] = []
         
                 querySnapshot.forEach(doc => {
                     billsArr.push(doc.data())
                 })
                 
-                let finalArr = _.cloneDeep(billsArr)
-                addBillsData(finalArr)
-                addBillsCount(finalArr.length)
+                dispatch(allActions.dataActions.addBillsCount(billsArr.length))
+                dispatch(allActions.dataActions.addBillsData(billsArr))
+            })
+        }
+
+        const getCustomers = async (id) => {
+            db.child('Customer Fanout').child(id).orderByChild('Customer Name').on('value', snapshot => {
+                const custArr : any[] = []
+                const obj = snapshot.val()
+
+                for (let prop in obj) {
+                    let innerObj = {}
+                    innerObj[prop] = obj[prop]
+                    custArr.push(innerObj)
+                }
+
+                dispatch(allActions.dataActions.addCustomerCount(custArr.length))
+                dispatch(allActions.dataActions.addCustomerData(custArr))
             })
         }
 
         if (userState.isLoggedIn) {
             addUserToStore()
             // Gets the bills data
-            getBills()
+            getBills(userState.uid)
+            getCustomers(userState.uid)
                 .then(() => setDataAddedToStore(true))       
         }
 
@@ -111,7 +113,7 @@ export const SignInFormBase = props => {
                     isLoggedIn: true
                 })
             })
-            .catch(error => {setError('Inavlid login')})
+            .catch(user => setUserState({...user, error: 'Invalid Login'}))
             
         event.preventDefault()
     }
@@ -159,22 +161,13 @@ export const SignInFormBase = props => {
                 type='submit' 
             />
 
-            {error && <p>{error}</p>}
+            {userState.error && <p>{userState.error}</p>}
         </form>
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addUser: activeUser => dispatch(addUser(activeUser)),
-        addBillsCount: count => dispatch(addBillsCount(count)),
-        addBillsData: data => dispatch(addBillsData(data))
-    }
-}
-
 const SignInForm = compose(
-    withRouter,
-    connect(null, mapDispatchToProps)
+    withRouter
 )(SignInFormBase)
 
 // Styling

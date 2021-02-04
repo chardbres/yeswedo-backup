@@ -12,6 +12,18 @@ export default function dataReducer (state = {}, action) {
                 billsData: action.payload
             }
         }
+        case 'ADD_CUSTOMER_COUNT': {
+            return {
+                ...state,
+                customerCount: action.payload
+            }
+        }
+        case 'ADD_CUSTOMER_DATA': {
+            return {
+                ...state,
+                customerData: action.payload
+            }
+        }
         default:
             return state
     }
