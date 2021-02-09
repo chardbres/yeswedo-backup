@@ -1,9 +1,18 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { ResponsiveBar } from '@nivo/bar'
+// Material-UI component(s)
 import Paper from '@material-ui/core/Paper'
-import { SectionTitle } from '../../atoms'
+// Nivo chart
+import { ResponsiveBar } from '@nivo/bar'
+// @Emotion
 import { css } from '@emotion/react'
+// Custom components
+import { SectionTitle } from '../../atoms'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 export const HoursByEmployee = ({ data }) => {
     return (

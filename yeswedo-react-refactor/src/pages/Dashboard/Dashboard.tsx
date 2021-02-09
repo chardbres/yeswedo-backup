@@ -1,20 +1,27 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React from 'react'
+// Redux
 import { useSelector } from 'react-redux'
-import { Header, Menu } from '../../components/organisms'
+// @Emotion
+import { css } from '@emotion/react'
+// Custom components
 import { 
     Billables, 
     BillAmount, 
-    BillSources, 
-    HoursByEmployee 
+    BillSources,
+    Header,
+    HoursByEmployee,
+    Menu,
+    Summary 
 } from '../../components/organisms'
-import { Summary } from '../../components/organisms'
-import { css } from '@emotion/react'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-import barData from '../../components/organisms/BillAmount/data.json'
+
 import barData2 from '../../components/organisms/HoursByEmployee/data.json'
-import pieData from '../../components/organisms/BillSources/data.json'
 
 const Dashboard = props => {
     let activeUser = useSelector(state => state.activeUser.user)
@@ -26,9 +33,9 @@ const Dashboard = props => {
                 <Menu />
                 <Header title='Dashboard' user={activeUser.name} />
                 <Summary dashboardData={dashboardData} />
-                <BillAmount data={barData} />
+                <BillAmount data={dashboardData.billsData} />
                 <div css={detailCSS}>
-                    <BillSources data={pieData} />
+                    <BillSources data={dashboardData.billsData} />
                     <HoursByEmployee data={barData2} />
                 </div>
                 <Billables />

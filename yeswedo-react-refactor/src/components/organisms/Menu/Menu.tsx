@@ -1,7 +1,10 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React from 'react'
+// React-Router
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
+// Material-UI component(s)
 import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
@@ -9,15 +12,19 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
+import { makeStyles } from '@material-ui/core/styles'
+// @Emotion
 import { css } from '@emotion/react'
-
-// Logo and icon imports
+// Logos and icons
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import API from '@material-ui/icons/AccountTree'
 import Customers from '@material-ui/icons/RecentActors'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Employees from '@material-ui/icons/People'
 import Jobs from '@material-ui/icons/Build'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 const styles = makeStyles({
     drawer: {
@@ -40,6 +47,7 @@ const styles = makeStyles({
         fontFamily: 'Nunito',
     }
 })
+
 
 export const Menu = () => {
     const classes = styles()

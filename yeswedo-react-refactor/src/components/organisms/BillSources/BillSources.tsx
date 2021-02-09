@@ -1,11 +1,32 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react'
-import { ResponsivePie } from '@nivo/pie'
-import { css } from '@emotion/react'
-import { SectionTitle } from '../../atoms'
-import Paper from '@material-ui/core/Paper'
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-export const BillSources = ({ data }) => {
+/** @jsxImportSource @emotion/react */
+import React, { useEffect, useState } from 'react'
+// Material-UI component(s)
+import Paper from '@material-ui/core/Paper'
+// Nivo chart
+import { ResponsivePie } from '@nivo/pie'
+// @Emotion
+import { css } from '@emotion/react'
+// Custom components
+import { SectionTitle } from '../../atoms'
+// Helper functions
+import { parseBillSources } from '../../../utils'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+export const BillSources = (props) => {
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+
+        if (props.data) {
+            setData(parseBillSources(props.data))
+        }
+        
+    },[props.data])
+
+
     return (
         <section css={sectionCSS} >
             <SectionTitle title='BILL SOURCES' />
@@ -16,7 +37,7 @@ export const BillSources = ({ data }) => {
                         innerRadius={0.5}
                         padAngle={0.7}
                         cornerRadius={3}
-                        colors={{ scheme: 'nivo' }}
+                        colors={{ scheme: 'yellow_orange_red' }}
                         borderWidth={1}
                         borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
                         radialLabelsSkipAngle={10}
@@ -24,76 +45,6 @@ export const BillSources = ({ data }) => {
                         radialLabelsLinkColor={{ from: 'color' }}
                         sliceLabelsSkipAngle={10}
                         sliceLabelsTextColor="#333333"
-                        defs={[
-                            {
-                                id: 'dots',
-                                type: 'patternDots',
-                                background: 'inherit',
-                                color: 'rgba(255, 255, 255, 0.3)',
-                                size: 4,
-                                padding: 1,
-                                stagger: true
-                            },
-                            {
-                                id: 'lines',
-                                type: 'patternLines',
-                                background: 'inherit',
-                                color: 'rgba(255, 255, 255, 0.3)',
-                                rotation: -45,
-                                lineWidth: 6,
-                                spacing: 10
-                            }
-                        ]}
-                        fill={[
-                            {
-                                match: {
-                                    id: 'ruby'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'c'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'go'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'python'
-                                },
-                                id: 'dots'
-                            },
-                            {
-                                match: {
-                                    id: 'scala'
-                                },
-                                id: 'lines'
-                            },
-                            {
-                                match: {
-                                    id: 'lisp'
-                                },
-                                id: 'lines'
-                            },
-                            {
-                                match: {
-                                    id: 'elixir'
-                                },
-                                id: 'lines'
-                            },
-                            {
-                                match: {
-                                    id: 'javascript'
-                                },
-                                id: 'lines'
-                            }
-                        ]}
                         legends={[
                             {
                                 anchor: 'bottom',

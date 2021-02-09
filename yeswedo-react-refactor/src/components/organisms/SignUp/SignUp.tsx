@@ -1,14 +1,21 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
+// React-Router
 import { withRouter, Redirect } from 'react-router-dom'
-import { compose } from 'recompose'
-import { useAuth } from '../../../context/auth'
 // import * as ROUTES from '../../../navigations/Routes'
+// Recompose
+import { compose } from 'recompose'
+// @Emotion
 import { css } from '@emotion/react'
-
 // Custom component imports
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
+import { useAuth } from '../../../context/auth'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 export const SignUp = () => {
     return (
@@ -19,15 +26,12 @@ export const SignUp = () => {
     )
 }
 
-const INITIAL_STATE = {
-    email: '',
-    passwordOne: '',
-    passwordTwo: ''
-}
 
 const SignUpFormBase = props => {
     const [credentials, setCredentials] = useState({ 
-        ...INITIAL_STATE 
+        email: '',
+        passwordOne: '',
+        passwordTwo: ''
     })
     const [isSignedUp, setSignedUp] = useState(false)
     const [error, setError] = useState(false)

@@ -1,15 +1,23 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { css } from '@emotion/react'
-import { createStyles, withStyles } from '@material-ui/core/styles'
+// Material-UI
+import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import { createStyles, withStyles } from '@material-ui/core/styles'
+// @Emotion
+import { css } from '@emotion/react'
+// Custom components
 import { SectionTitle } from '../../atoms'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 const StyledCell = withStyles(() => 
     createStyles({
@@ -19,6 +27,7 @@ const StyledCell = withStyles(() =>
         }
     })
 )(TableCell)
+
 
 export const Billables = () => {
     

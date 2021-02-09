@@ -1,13 +1,22 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 import React from 'react'
+// Firebase
 import { signOut } from '../../../api/Firebase/firebase'
-import { useAuth } from '../../../context/auth'
+// Material-UI component(s)
 import MenuItem from '@material-ui/core/MenuItem'
+// Custom components
+import { useAuth } from '../../../context/auth'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 export const SignOut = () => {
     return (
         <SignOutBase />
     )
 }
+
 
 const SignOutBase = props => {
     const { setAuthTokens } : any = useAuth()

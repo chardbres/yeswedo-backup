@@ -1,11 +1,19 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React, { Fragment, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+// TypeScript
+import PropTypes from 'prop-types'
+// Material-UI component(s)
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { SectionTitle, SummaryCard } from '../../atoms'
+// @Emotion
 import { css } from '@emotion/react'
-import PropTypes from 'prop-types'
+// Custom components
+import { SectionTitle, SummaryCard } from '../../atoms'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 const styles = makeStyles({
     summaryRow: {
@@ -16,7 +24,8 @@ const styles = makeStyles({
     }
 })
 
-const Summary = (props) => {
+
+export const Summary = (props) => {
     const classes = styles()
 
     const [data, setData] = useState({
@@ -80,8 +89,6 @@ const Summary = (props) => {
         </Fragment>
     )
 }
-
-export default Summary
 
 Summary.propTypes = {
     user: PropTypes.any

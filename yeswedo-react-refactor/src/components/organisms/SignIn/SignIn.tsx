@@ -1,18 +1,24 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react'
+// React-Router
 import { withRouter, Redirect } from 'react-router-dom'
-import firebase, { signIn } from '../../../api/Firebase/firebase'
+// Recompose
 import { compose } from 'recompose'
-import { useAuth } from '../../../context/auth'
-import { css } from '@emotion/react'
-
-// Redux imports
+// Firebase
+import firebase, { signIn } from '../../../api/Firebase/firebase'
+// Redux
 import allActions from '../../../api/Redux/actions'
 import { useDispatch } from 'react-redux'
-
-// Custom component imports
+// @Emotion
+import { css } from '@emotion/react'
+// Custom components and logos
 import Logo from '../../../assets/images/yeswedo_logo.png'
 import { FullButton, IconInput } from '../../atoms'
+import { useAuth } from '../../../context/auth'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 export const SignIn = () => {

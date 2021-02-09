@@ -41,35 +41,6 @@
 //     this.auth.currentUser.updatePassword(password)
 
 //   // Database APIs
-//   doGetBillsData = (myUID) => {
-//     const finalArr = []
-
-//     this.firestore.collection('Bill Fanout').where('Client', '==', `${myUID}`).onSnapshot(snapshot => {
-//       let count = 0
-//       const billsArr = []
-
-//       snapshot.forEach(item => {
-//         billsArr.push(item.data())
-//         count++
-//       })
-
-//       finalArr[0] = count
-//       finalArr[1] = billsArr
-//     })
-
-//     return finalArr
-//   }
-
-//   doGetCustomerData = myUID =>
-//   this.db.child('Customer Fanout').child(myUID).orderByChild('Customer Name').on('value', snapshot => {
-//     const obj = snapshot.val()
-//     console.log(obj)
-//     for (let prop in obj) {
-//       let innerObj = {}
-//       innerObj[prop] = obj[prop]
-//       this.customerData.push(innerObj)
-//     }
-//   })
 
 //   doGetJobsData = myUID =>
 //     this.db.child('Jobs Board Fanout').child(myUID).orderByChild('Job Name').on('value', snapshot => {
@@ -86,25 +57,7 @@
 //       this.workerData.push(snapshot)
 //     })
 
-//   returnData = type => {
-//     switch(type) {
-//       case 'bills':
-//         return this.billsData
-//       case 'customers':
-//         return this.customerData  
-//       case 'jobs':
-//         return this.jobsData
-//       case 'worker':
-//           return this.workerData
-//       default:
-//         return null
-//     }
-
 //   }
-
-//   returnBillsCount = () => { return this.billsCount }
-
-//   clearData = () => this.data = []
 
 // }
    

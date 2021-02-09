@@ -1,18 +1,26 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /** @jsxImportSource @emotion/react */
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+// TypeScript
+import PropTypes from 'prop-types'
+// Material-UI component(s)
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
 import Badge from '@material-ui/core/Badge'
 import Divider from '@material-ui/core/Divider'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import { css } from '@emotion/react'
-import PropTypes from 'prop-types'
-import { AccountMenu } from '../../molecules'
-
 import Message from '@material-ui/icons/ChatBubble'
 import Notification from '@material-ui/icons/Notifications'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+// @Emotion
+import { css } from '@emotion/react'
+// Custom components
+import { AccountMenu } from '../../molecules'
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 const styles = makeStyles({
     appBar: {
@@ -26,6 +34,7 @@ const styles = makeStyles({
         flexGrow: 1
     }
 })
+
 
 export const Header = ({ title, user }) => {
     const classes = styles()
