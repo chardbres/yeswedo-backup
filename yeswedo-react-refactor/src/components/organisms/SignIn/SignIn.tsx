@@ -52,7 +52,6 @@ export const SignInFormBase = props => {
         isLoggedIn: false
     })
     const [isDataAddedToStore, setDataAddedToStore] = useState(false)
-    // ------------------------------------------------------------------------
    
     useEffect(() => {
         
