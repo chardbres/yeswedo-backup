@@ -126,5 +126,5 @@ const sectionCSS = css`
 const chartCSS = css`
     height: 500px;
     margin: 0 auto 2rem;
-    width: 84vw;
+    width: 95%;
 `

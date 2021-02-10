@@ -38,7 +38,11 @@ const Dashboard = props => {
                     <BillSources data={dashboardData.billsData} />
                     <HoursByEmployee data={dashboardData.billsData} user={activeUser.name} />
                 </div>
-                <Billables />
+                <Billables 
+                    billsData={dashboardData.billsData}
+                    custData={dashboardData.customerData}
+                    jobsData={dashboardData.jobsData}
+                />
             </div>
         </div>
     )

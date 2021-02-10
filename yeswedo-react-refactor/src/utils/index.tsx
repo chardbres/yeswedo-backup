@@ -1,2 +1,2 @@
 export { getDate } from './getDate'
-export { parseBillHours, parseBillSources } from './parseBillsArray'
+export { parseBillHours, parseBillSources } from './parseBillsData'

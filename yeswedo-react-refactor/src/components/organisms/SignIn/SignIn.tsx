@@ -53,6 +53,7 @@ export const SignInFormBase = props => {
     })
     const [isDataAddedToStore, setDataAddedToStore] = useState(false)
    
+
     useEffect(() => {
         
         const addUserToStore = async () => {
@@ -73,7 +74,7 @@ export const SignInFormBase = props => {
         }
 
         const getCustomers = async (id) => {
-            db.child('Customer Fanout').child(id).orderByChild('Customer Name').on('value', snapshot => {
+            db.child('Customer Fanout').child(id).on('value', snapshot => {
                 const custArr : any[] = []
                 const obj = snapshot.val()
 
@@ -88,11 +89,25 @@ export const SignInFormBase = props => {
             })
         }
 
+        const getJobs = async (id) => {
+            db.child('Jobs Board Fanout').child(id).on('value', snapshot => {
+                const jobArr : any[] = []
+
+                snapshot.forEach(doc => {
+                    jobArr.push(doc.val())
+                })
+
+                dispatch(allActions.dataActions.addJobsCount(jobArr.length))
+                dispatch(allActions.dataActions.addJobsData(jobArr))
+            })
+        }
+
         if (userState.isLoggedIn) {
             addUserToStore()
             // Gets the bills data
             getBills(userState.uid)
             getCustomers(userState.uid)
+            getJobs(userState.uid)
                 .then(() => setDataAddedToStore(true))       
         }
 

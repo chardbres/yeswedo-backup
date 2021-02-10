@@ -18,9 +18,21 @@ export const addCustomerData = data => ({
     payload: data
 })
 
+export const addJobsCount = count => ({
+    type: 'ADD_JOBS_COUNT',
+    payload: count
+})
+
+export const addJobsData = data => ({
+    type: 'ADD_JOBS_DATA',
+    payload: data
+})
+
 export default {
     addBillsCount,
     addBillsData,
     addCustomerCount,
-    addCustomerData
+    addCustomerData,
+    addJobsCount,
+    addJobsData
 }
